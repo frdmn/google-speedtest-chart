@@ -10,7 +10,7 @@ from pysed import replace
 
 # Google credentials
 email = config.google['email']
-password = config.google['email']
+password = config.google['password']
 spreadsheet_key = config.google['spreadsheet_key']
 
 # All spreadsheets have worksheets. I think worksheet #1 by default always
