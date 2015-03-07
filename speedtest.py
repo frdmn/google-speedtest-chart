@@ -1,11 +1,13 @@
 #!/usr/bin/python
 
+# Imports
 import time
 import subprocess
 import re
 import gdata.spreadsheet.service
 from pysed import replace
 
+# Google credentials
 email = 'your.address@gmail.com'
 password = '12345abcde'
 
@@ -18,30 +20,36 @@ spreadsheet_key = 'XXX'
 # has a value of 'od6'
 worksheet_id = 'od6'
 
+# Google Spreadsheet connection
 spr_client = gdata.spreadsheet.service.SpreadsheetsService()
 spr_client.email = email
 spr_client.password = password
 spr_client.source = 'Upload/Download bandwidth reporter'
 spr_client.ProgrammaticLogin()
 
+# Run speedtest and store output
 speedtest_result=subprocess.check_output(["/usr/local/bin/speedtest-cli"], stderr=subprocess.STDOUT)
 
+# Find download bandwidth and substitute unimportant bits
 download = re.findall(r'Download: [0-9\.]* .bit', speedtest_result, re.MULTILINE)[0]
 download = replace(download, "Download: ", "")
 download = replace(download, ".bit", "")
 
+# Find upload bandwidth and substitute unimportant bits
 upload = re.findall(r'Upload: [0-9\.]* .bit', speedtest_result, re.MULTILINE)[0]
 upload = replace(upload, "Upload: ", "")
 upload = replace(upload, ".bit", "")
 
-# Prepare the dictionary to write
+# Create dictionary to for the data
 dict = {}
 dict['date'] = time.strftime('%m/%d/%Y') + " " +  time.strftime('%H:%M:%S')
 dict['upload'] = upload
 dict['download'] = download
 print(dict)
 
+# Insert row in spreadsheet
 entry = spr_client.InsertRow(dict, spreadsheet_key, worksheet_id)
+# Check if added successfully
 if isinstance(entry, gdata.spreadsheet.SpreadsheetsList):
   print("Insert row succeeded.")
 else:
