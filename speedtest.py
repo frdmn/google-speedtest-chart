@@ -11,11 +11,7 @@ from pysed import replace
 # Google credentials
 email = config.google['email']
 password = config.google['email']
-
-# You can find the key in the spreadsheet URL:
-# https://docs.google.com/spreadsheets/d/XXX
-# => XXX is the key, copy and paste below
-spreadsheet_key = 'XXX'
+spreadsheet_key = config.google['spreadsheet_key']
 
 # All spreadsheets have worksheets. I think worksheet #1 by default always
 # has a value of 'od6'
