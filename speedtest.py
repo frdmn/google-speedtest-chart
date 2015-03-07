@@ -5,11 +5,12 @@ import time
 import subprocess
 import re
 import gdata.spreadsheet.service
+import config
 from pysed import replace
 
 # Google credentials
-email = 'your.address@gmail.com'
-password = '12345abcde'
+email = config.google['email']
+password = config.google['email']
 
 # You can find the key in the spreadsheet URL:
 # https://docs.google.com/spreadsheets/d/XXX
