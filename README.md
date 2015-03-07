@@ -27,6 +27,10 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Run it:  
   `speedtest-to-google`
 
+### Lincense
+
+[WTFPL](LICENSE)
+
 ### Version
 
 1.0.0
