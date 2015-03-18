@@ -37,11 +37,16 @@ upload = re.findall(r'Upload: [0-9\.]* .bit', speedtest_result, re.MULTILINE)[0]
 upload = replace(upload, "Upload: ", "")
 upload = replace(upload, ".bit", "")
 
+# Find ping latency and substitute unimportant bits
+ping = re.findall(r'[0-9\.]* ms', speedtest_result, re.MULTILINE)[0]
+ping = replace(ping, " ms", "")
+
 # Create dictionary to for the data
 dict = {}
 dict['date'] = time.strftime('%m/%d/%Y') + " " +  time.strftime('%H:%M:%S')
-dict['upload'] = upload
+dict['ping'] = ping
 dict['download'] = download
+dict['upload'] = upload
 print(dict)
 
 # Insert row in spreadsheet
