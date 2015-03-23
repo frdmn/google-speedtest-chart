@@ -3,7 +3,7 @@ google-speedtest-chart
 
 Simple Python script to push speedtest results (using `speedtest-cli`) to a Google Docs spreadsheet. I use this to measure and track my upload and download bandwith:
 
-![](http://up.frd.mn/6v8FE.png)
+![](http://up.frd.mn/xRiew.png)
 
 You can find an interactive demo (actually productive) version of the chart here: https://docs.google.com/spreadsheets/d/1QvV6POBVBXuq5iXSOLNd5bwgd5To8FMuvsrSfvY7Nuk/pubchart?oid=1973311741&format=interactive
 
@@ -51,14 +51,13 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Click on "Insert" => "Chart" to create a chart.
 1. In the "Start" tab type in, "`Sheet1!A:D`":  
   ![](http://up.frd.mn/t8ig1.jpg)
-1. In the "Charts" tab select a appropriate line chart type, "Combo chart" for example:  
-  ![](http://up.frd.mn/zxHWj.jpg)
+1. In the "Charts" tab select a appropriate line chart type, "line chart" for example:  
+  ![](http://up.frd.mn/xHZU8.png)
 1. Click on the "Customise" tab for the final adjustments.
 1. At the very top, check "Compare mode" in the features:  
   ![](http://up.frd.mn/blDkc.jpg)
 1. Scroll down to the "Series" group and select "Ping" in the drop down menu, then set it to "Left axis":  
   ![](http://up.frd.mn/AQbyj.jpg) 
-1. Set the type for "Download" and "Upload" columns to "Line" and the "Ping" column to "Columns"
 1. Finally, click on "Insert" to transfer the chart in your spreadsheet.
 1. Now click on the little arrow in the top right corner of the chart and select "Publish chart":  
   ![](http://up.frd.mn/pnOc7.jpg)
