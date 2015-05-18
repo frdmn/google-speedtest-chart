@@ -18,7 +18,7 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Clone repository:  
   `git clone https://github.com/frdmn/google-speedtest-chart.git /opt/google-speedtest-chart`
 1. Install dependencies:  
-  `pip install pysed gdata speedtest-cli`
+  `pip install pysed==0.3.1 gdata speedtest-cli`
 1. Copy default config and adjust it:  
   `cp config.example.py config.py`  
   `vi config.py`
