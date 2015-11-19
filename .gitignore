@@ -82,4 +82,5 @@ Temporary Items
 
 #####=== google-speedtest-chart ===#####
 
-config.py
+config.yml
+secret.json
