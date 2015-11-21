@@ -47,11 +47,6 @@ def get_credentials():
 
 # Main function
 def main():
-    """Shows basic usage of the Google Drive API.
-
-    Creates a Google Drive API service object and outputs the names and IDs
-    for up to 10 files.
-    """
     credentials = get_credentials()
 
     # Use it within gdata
