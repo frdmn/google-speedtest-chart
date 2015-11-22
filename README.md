@@ -32,7 +32,7 @@ You can find an interactive demo (actually productive) version of the chart here
 
 ### Lincense
 
-[WTFPL](LICENSE)
+[MIT](LICENSE)
 
 ### Version
 
