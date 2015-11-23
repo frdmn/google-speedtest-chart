@@ -1,35 +1,26 @@
-### Detailed usage
+### Step 1: Turn on the Drive API
 
-1. Go to the Google Docs dashboard and create a new Spreadsheet using the big green "+" button on the right bottom:  
-  ![](http://up.frd.mn/lgMd7.png)
-1. Fill in the first four columns "`Date`", "`Download`", "`Upload`" and "`Ping`":  
-  ![](http://up.frd.mn/qS5LU.jpg)
-1. Copy the spreadsheet key from the URL into your `config.py`.  
-1. Run the `speedtest-to-google` script to make sure it's working:  
-  `/usr/local/bin/speedtest-to-google`
-1. Yep, it works:  
-  ![](http://up.frd.mn/lDStQ.jpg)
-1. Setup a cronjob so the speedtest runs automatically:  
-  `crontab -e`  
+1. Use [this wizard](https://console.developers.google.com/start/api?id=drive) to create or select a project in the Google Developers Console and automatically turn on the API. Click the __Go to credentials__ button to continue.
+2. At the top of the page, select the __OAuth consent screen__ tab. Select an __Email address__, enter a __Product name__ if not already set, and click the __Save__ button:  
+  ![](http://up.frd.mn/cCML4.png)
+3. Back on the __Credentials__ tab, click the __Add credentials__ button and select __OAuth 2.0 client ID__.
+4. Select the application type __Other__, type in "Python Speedtest" as name and click the __Create__ button:  
+  ![](http://up.frd.mn/BZu5V.png)
+5. Click __OK__ to dismiss the resulting dialog.
+6. Click the "__Download__" to the right of the client ID to download the JSON file that contains the secret key.
+7. Move this file to your project directory and rename it `secret.json`.
 
-  and insert:
+### Step 2: Set up project and dependencies
 
-  `*/10 * * * * /usr/local/bin/speedtest-to-google`
+1. Check the `README.md` and follow the installation instructions.
+2. Make sure to install all "pip" dependencies.
 
-  Save and quit using Ctrl + X.
-1. Now back in the spreadsheet, select the whole columns A - D by clicking on A, then with Shift + Click on D:  
-  ![](http://up.frd.mn/7fusF.jpg)
-1. Click on "Insert" => "Chart" to create a chart.
-1. In the "Start" tab type in, "`Sheet1!A:D`":  
-  ![](http://up.frd.mn/t8ig1.jpg)
-1. In the "Charts" tab select a appropriate line chart type, "line chart" for example:  
-  ![](http://up.frd.mn/xHZU8.png)
-1. Click on the "Customise" tab for the final adjustments.
-1. At the very top, check "Compare mode" in the features:  
-  ![](http://up.frd.mn/blDkc.jpg)
-1. Scroll down to the "Series" group and select "Ping" in the drop down menu, then set it to "Left axis":  
-  ![](http://up.frd.mn/AQbyj.jpg)
-1. Finally, click on "Insert" to transfer the chart in your spreadsheet.
-1. Now click on the little arrow in the top right corner of the chart and select "Publish chart":  
-  ![](http://up.frd.mn/pnOc7.jpg)
-1. Hit "Publish" to receive an URL which is publicly available.
+### Step 3: Obtain OAuth tokens for client
+
+1. Make sure you've installed the `secret.json` as described in step 1.
+2. Run the script to establish OAuth authorization:  
+  `$ ./speedtest.py`
+3. Wait for the new browser window to open, make sure to log into your Google account and grant access to our `speedtest` script.
+4. In case you run the "google-speedtest-chart" on a machine without GUI or browser support, run the following on a machine with GUI:  
+  `$ ./speedtest.py --noauth_local_webserver`
+5. ... and copy and paste the URL from the command line to your browser, perform the authorization to Google Drive and paste the access key back in your command line.
