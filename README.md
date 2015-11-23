@@ -9,7 +9,7 @@ You can find an interactive demo (actually productive) version of the chart here
 
 ### Requirements
 
-* Python 2.7
+* Python 2.6
 * [`speedtest-cli`](https://github.com/sivel/speedtest-cli)
 * Google account
 
