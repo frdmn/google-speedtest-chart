@@ -18,7 +18,7 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Clone and open repository:  
   `git clone https://github.com/frdmn/google-speedtest-chart.git && cd google-speedtest-chart`
 1. Install dependencies:  
-  `pip install pysed==0.3.1 gdata speedtest-cli google-api-python-client`
+  `pip install pysed==0.3.1 gdata speedtest-cli google-api-python-client pyyaml`
 1. Copy default config and adjust it:  
   `cp default.config.yml config.yml`  
 1. Adjust `spreadsheet_id` in `config.yml`:  
