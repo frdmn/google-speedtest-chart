@@ -32,7 +32,7 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Run the script:  
   `$ speedtest-to-google`
 
-### Lincense
+### License
 
 [MIT](LICENSE)
 
