@@ -26,7 +26,7 @@ You can find an interactive demo (actually productive) version of the chart here
 1. Symlink it into your `$PATH`:  
   `ln -s speedtest.py /usr/local/bin/speedtest-to-google`
 1. Create an OAuth token using the tutorial in the wiki:  
-  [https://github.com/frdmn/google-speedtest-chart/wiki/How-to-create-a-Google-OAuth-token](https://github.com/frdmn/google-speedtest-chart/wiki/How-to-create-a-Google-OAuth-token)
+  [docs/How-to-create-a-Google-OAuth-token.md](docs/How-to-create-a-Google-OAuth-token.md)
 1. Run the script:  
   `$ speedtest-to-google`
 
