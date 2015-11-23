@@ -42,6 +42,7 @@ def get_credentials():
     store = oauth2client.file.Storage(credential_path)
     credentials = store.get()
     if not credentials or credentials.invalid:
+        print('--------')
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:
@@ -49,6 +50,7 @@ def get_credentials():
         else: # Needed only for compatibility with Python 2.6
             credentials = tools.run(flow, store)
         print('Storing credentials to ' + credential_path)
+        print('--------')
     return credentials
 
 # Function to submit speedtest result
@@ -82,8 +84,15 @@ def submit_into_spreadsheet(ping, download, upload):
 
 # Main function to run speedtest
 def main():
+    # Check for proper credentials
+    print("Checking OAuth validity ... ")
+
+    credentials = get_credentials()
+
     # Run speedtest and store output
+    print("Starting speed test ... ")
     speedtest_result=subprocess.check_output(["/usr/local/bin/speedtest-cli"], stderr=subprocess.STDOUT)
+    print("Starting speed finished!")
 
     # Find download bandwidth and substitute unimportant bits
     download = re.findall(r'Download: [0-9\.]* .bit', speedtest_result, re.MULTILINE)[0]
@@ -99,7 +108,10 @@ def main():
     ping = re.findall(r'[0-9\.]* ms', speedtest_result, re.MULTILINE)[0]
     ping = replace(ping, " ms", "")
 
+    # Write to spreadsheet
+    print("Writing to spreadsheet ...")
     submit_into_spreadsheet(ping, download, upload)
+    print("Successfuly written to spreadsheet!")
 
 if __name__ == '__main__':
     main()
