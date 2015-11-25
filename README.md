@@ -38,4 +38,4 @@ You can find an interactive demo (actually productive) version of the chart here
 
 ### Version
 
-1.2.1
+1.3.0
