@@ -2,9 +2,9 @@
 
 1. Go to the Google Docs dashboard and create a new Spreadsheet using the big green "+" button on the right bottom:  
   ![](http://up.frd.mn/lgMd7.png)
-1. Fill in the first four columns "`Date`", "`Download`", "`Upload`" and "`Ping`":  
+1. Fill in the first four columns `Date`, `Download`, `Upload` and `Ping`:  
   ![](http://up.frd.mn/qS5LU.jpg)
-1. Copy the spreadsheet key from the URL into your `config.py`.  
+1. Copy the spreadsheet key from the URL into your `config.json`.  
 1. Run the `speedtest-to-google` script to make sure it's working:  
   `/usr/local/bin/speedtest-to-google`
 1. Yep, it works:  
@@ -20,7 +20,7 @@
 1. Now back in the spreadsheet, select the whole columns A - D by clicking on A, then with Shift + Click on D:  
   ![](http://up.frd.mn/7fusF.jpg)
 1. Click on "Insert" => "Chart" to create a chart.
-1. In the "Start" tab type in, "`Sheet1!A:D`":  
+1. In the "Start" tab type in, `Sheet1!A:D`:  
   ![](http://up.frd.mn/t8ig1.jpg)
 1. In the "Charts" tab select a appropriate line chart type, "line chart" for example:  
   ![](http://up.frd.mn/xHZU8.png)
