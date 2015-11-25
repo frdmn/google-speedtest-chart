@@ -20,7 +20,6 @@ import oauth2client.file
 # Set constants
 SCOPES = "https://spreadsheets.google.com/feeds/"
 APPLICATION_NAME = "google-speedtest-chart"
-CLIENT_SECRET_FILE = "secret.json"
 
 DOWNLOAD_RE = re.compile(r"Download: ([\d.]+) .bit")
 UPLOAD_RE = re.compile(r"Upload: ([\d.]+) .bit")
@@ -50,7 +49,8 @@ def get_credentials():
     credentials = store.get()
     if not credentials or credentials.invalid:
         print("--------")
-        flow = oauth2client.client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow = oauth2client.client.flow_from_clientsecrets(
+            config["client_secret_file"], SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:
             credentials = oauth2client.tools.run_flow(flow, store, flags)
