@@ -18,6 +18,7 @@ import oauth2client.tools
 import oauth2client.file
 
 # Set constants
+DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 SCOPES = "https://spreadsheets.google.com/feeds/"
 APPLICATION_NAME = "google-speedtest-chart"
 
@@ -34,7 +35,7 @@ except ImportError:
     flags = None
 
 # Load config file
-with open("config.json", "r") as configfile:
+with open(os.path.join(DIRECTORY, "config.json"), "r") as configfile:
     config = json.load(configfile)
 
 # Function to check for valid OAuth access tokens
@@ -50,7 +51,7 @@ def get_credentials():
     if not credentials or credentials.invalid:
         print("--------")
         flow = oauth2client.client.flow_from_clientsecrets(
-            config["client_secret_file"], SCOPES)
+            os.path.join(DIR, config["client_secret_file"]), SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:
             credentials = oauth2client.tools.run_flow(flow, store, flags)
