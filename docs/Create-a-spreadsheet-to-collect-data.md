@@ -14,7 +14,7 @@
 
   and insert:
 
-  `*/10 * * * * /usr/local/bin/speedtest-to-google`
+  `*/10 * * * * PATH=$PATH:/usr/local/bin /usr/local/bin/speedtest-to-google`
 
   Save and quit using Ctrl + X.
 1. Now back in the spreadsheet, select the whole columns A - D by clicking on A, then with Shift + Click on D:  
