@@ -21,14 +21,12 @@ You can find an interactive demo (actually productive) version of the chart here
   `pip install gdata speedtest-cli google-api-python-client`
 1. Copy default config and adjust it:  
   `cp default.config.json config.json`
-1. Adjust `spreadsheet_id` in `config.json`:  
-  `vi config.json`
 1. Symlink it into your `$PATH`:  
   `ln -s speedtest.py /usr/local/bin/speedtest-to-google`
 1. Create an OAuth token using the tutorial in the wiki:  
   :book: [docs/How-to-create-a-Google-OAuth-token.md](docs/How-to-create-a-Google-OAuth-token.md)
 1. Create a spreadsheet dedicated to collect your speedtest results:  
-  :book: [docs/Create-a-spreadsheet-to-collect-data.md](docs/Create-a-spreadsheet-to-collect-data.md)
+  :book: [docs/Create-a-spreadsheet-to-collect-data.md](docs/Create-a-spreadsheet-to-collect-data.md) and make sure to adjust `spreadsheet_id` in the `config.json` file
 1. Run the script:  
   `$ speedtest-to-google`
 
