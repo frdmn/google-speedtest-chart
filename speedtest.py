@@ -51,7 +51,7 @@ def get_credentials():
     if not credentials or credentials.invalid:
         print("--------")
         flow = oauth2client.client.flow_from_clientsecrets(
-            os.path.join(DIR, config["client_secret_file"]), SCOPES)
+            os.path.join(DIRECTORY, config["client_secret_file"]), SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:
             credentials = oauth2client.tools.run_flow(flow, store, flags)
