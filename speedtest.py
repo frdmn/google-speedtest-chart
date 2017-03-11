@@ -26,19 +26,16 @@ def submit_into_spreadsheet(download, upload, ping):
     sheet = speedtest.sheet1
 
     data = [DATE, download, upload, ping]
-    print(data)
 
     sheet.append_row(values=data)
 
 def main():
-    """Main function to run speedtest."""
-    #Check for proper credentials
-    print("Checking OAuth validity ... ")
-
+    # Check for proper credentials
+    print("Checking OAuth validity...")
     credentials = get_credentials()
 
     # Run speedtest and store output
-    print("Starting speed test ... ")
+    print("Starting speed test...")
     speedtest_result = subprocess.check_output(["speedtest-cli"], stderr=subprocess.STDOUT)
     print("Starting speed finished!")
 
@@ -50,7 +47,7 @@ def main():
     ping = PING_RE.search(str(speedtest_result)).group(1)
 
     # Write to spreadsheet
-    print("Writing to spreadsheet ...")
+    print("Writing to spreadsheet...")
     submit_into_spreadsheet(download, upload, ping)
     print("Successfuly written to spreadsheet!")
 
