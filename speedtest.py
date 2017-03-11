@@ -13,13 +13,13 @@ UPLOAD_RE = re.compile(r"Upload: ([\d.]+) .bit")
 PING_RE = re.compile(r"([\d.]+) ms")
 DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
 
-# Function to check for valid OAuth access tokens
 def get_credentials():
+    """Function to check for valid OAuth access tokens."""
     gc = pygsheets.authorize(service_file="credentials.json")
     return gc
 
-# Function to submit speedtest result
 def submit_into_spreadsheet(download, upload, ping):
+    """Function to submit speedtest result."""
     gc = get_credentials()
 
     speedtest = gc.open("Speedtest")
@@ -30,9 +30,9 @@ def submit_into_spreadsheet(download, upload, ping):
 
     sheet.append_row(values=data)
 
-# Main function to run speedtest
 def main():
-    # Check for proper credentials
+    """Main function to run speedtest."""
+    #Check for proper credentials
     print("Checking OAuth validity ... ")
 
     credentials = get_credentials()
