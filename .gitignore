@@ -11,7 +11,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+venv/
 build/
 develop-eggs/
 dist/
@@ -82,5 +82,4 @@ Temporary Items
 
 #####=== google-speedtest-chart ===#####
 
-config.json
-secret.json
+credentials.json
