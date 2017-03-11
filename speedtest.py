@@ -2,88 +2,34 @@
 
 from __future__ import print_function
 import os
-import json
 import subprocess
 import re
-import time
-
-import gdata
-import gdata.spreadsheets.client
-import gdata.spreadsheets.data
-import gdata.gauth
-
-import oauth2client
-import oauth2client.client
-import oauth2client.tools
-import oauth2client.file
+import datetime
+import pygsheets
 
 # Set constants
-DIRECTORY = os.path.dirname(os.path.realpath(__file__))
-SCOPES = "https://spreadsheets.google.com/feeds/"
-APPLICATION_NAME = "google-speedtest-chart"
-
+SCOPE = ["https://spreadsheets.google.com/feeds/"]
 DOWNLOAD_RE = re.compile(r"Download: ([\d.]+) .bit")
 UPLOAD_RE = re.compile(r"Upload: ([\d.]+) .bit")
 PING_RE = re.compile(r"([\d.]+) ms")
-
-# Parse possible args (--noauth_local_webserver)
-try:
-    import argparse
-    flags = argparse.ArgumentParser(
-        parents=[oauth2client.tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
-# Load config file
-with open(os.path.join(DIRECTORY, "config.json"), "r") as configfile:
-    config = json.load(configfile)
+DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
 
 # Function to check for valid OAuth access tokens
 def get_credentials():
-    home_dir = os.path.expanduser("~")
-    credential_dir = os.path.join(home_dir, ".credentials")
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir, "drive-python-quickstart.json")
-
-    store = oauth2client.file.Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        print("--------")
-        flow = oauth2client.client.flow_from_clientsecrets(
-            os.path.join(DIRECTORY, config["client_secret_file"]), SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = oauth2client.tools.run_flow(flow, store, flags)
-        else: # Needed only for compatibility with Python 2.6
-            credentials = oauth2client.tools.run(flow, store)
-        print("Storing credentials to " + credential_path)
-        print("--------")
-    return credentials
+    gc = pygsheets.authorize(service_file="credentials.json")
+    return gc
 
 # Function to submit speedtest result
-def submit_into_spreadsheet(ping, download, upload):
-    credentials = get_credentials()
+def submit_into_spreadsheet(download, upload, ping):
+    gc = get_credentials()
 
-    # create the spreadsheet client and authenticate
-    spr_client = gdata.spreadsheets.client.SpreadsheetsClient()
-    auth2token = gdata.gauth.OAuth2TokenFromCredentials(credentials)
-    spr_client = auth2token.authorize(spr_client)
+    speedtest = gc.open("Speedtest")
+    sheet = speedtest.sheet1
 
-    # Prepare dictionary
-    data = {
-        "date": time.strftime("%m/%d/%Y %H:%M:%S"),
-        "ping": ping,
-        "download": download,
-        "upload": upload,
-    }
+    data = [DATE, download, upload, ping]
     print(data)
 
-    entry = gdata.spreadsheets.data.ListEntry()
-    entry.from_dict(data)
-
-    # add the ListEntry you just made
-    spr_client.add_list_entry(entry, config["spreadsheet_id"], config["worksheet_id"])
+    sheet.append_row(values=data)
 
 # Main function to run speedtest
 def main():
@@ -98,15 +44,15 @@ def main():
     print("Starting speed finished!")
 
     # Find download bandwidth
-    download = DOWNLOAD_RE.search(speedtest_result).group(1)
+    download = DOWNLOAD_RE.search(str(speedtest_result)).group(1)
     # Find upload bandwidth
-    upload = UPLOAD_RE.search(speedtest_result).group(1)
+    upload = UPLOAD_RE.search(str(speedtest_result)).group(1)
     # Find ping latency
-    ping = PING_RE.search(speedtest_result).group(1)
+    ping = PING_RE.search(str(speedtest_result)).group(1)
 
     # Write to spreadsheet
     print("Writing to spreadsheet ...")
-    submit_into_spreadsheet(ping, download, upload)
+    submit_into_spreadsheet(download, upload, ping)
     print("Successfuly written to spreadsheet!")
 
 if __name__ == "__main__":
