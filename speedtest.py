@@ -22,7 +22,7 @@ def submit_into_spreadsheet(download, upload, ping):
     """Function to submit speedtest result."""
     gc = get_credentials()
 
-    speedtest = gc.open("Speedtest-2")
+    speedtest = gc.open(os.getenv('SPREADSHEET', 'Speedtest'))
     sheet = speedtest.sheet1
 
     data = [DATE, download, upload, ping]
