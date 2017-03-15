@@ -57,4 +57,4 @@ You can find an interactive demo (~~actually productive~~) version of the chart 
 
 ### Version
 
-1.3.1
+1.4.0
