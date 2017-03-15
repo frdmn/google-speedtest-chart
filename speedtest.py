@@ -15,14 +15,14 @@ DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
 
 def get_credentials():
     """Function to check for valid OAuth access tokens."""
-    gc = pygsheets.authorize(service_file="credentials.json")
+    gc = pygsheets.authorize(outh_file="credentials.json")
     return gc
 
 def submit_into_spreadsheet(download, upload, ping):
     """Function to submit speedtest result."""
     gc = get_credentials()
 
-    speedtest = gc.open("Speedtest")
+    speedtest = gc.open("Speedtest-2")
     sheet = speedtest.sheet1
 
     data = [DATE, download, upload, ping]
