@@ -5,12 +5,9 @@ import subprocess
 import re
 import datetime
 import pygsheets
+import speedtest
 
 # Set constants
-SCOPE = ["https://spreadsheets.google.com/feeds/"]
-DOWNLOAD_RE = re.compile(r"Download: ([\d.]+) .bit")
-UPLOAD_RE = re.compile(r"Upload: ([\d.]+) .bit")
-PING_RE = re.compile(r"([\d.]+) ms")
 DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
 
 def get_credentials():
@@ -36,15 +33,13 @@ def main():
 
     # Run speedtest and store output
     print("Starting speed test...")
-    speedtest_result = subprocess.check_output(["speedtest-cli"], stderr=subprocess.STDOUT)
+    #speedtest.SOURCE = ip
+    s = speedtest.Speedtest()
+    s.get_best_server()
+    download = s.download()
+    upload = s.upload()
+    ping = s.results.ping
     print("Starting speed finished!")
-
-    # Find download bandwidth
-    download = DOWNLOAD_RE.search(str(speedtest_result)).group(1)
-    # Find upload bandwidth
-    upload = UPLOAD_RE.search(str(speedtest_result)).group(1)
-    # Find ping latency
-    ping = PING_RE.search(str(speedtest_result)).group(1)
 
     # Write to spreadsheet
     print("Writing to spreadsheet...")
