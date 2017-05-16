@@ -26,7 +26,7 @@ You can find an interactive demo (~~actually productive~~) version of the chart 
 1. Install dependencies:
 
     ```
-    pip install pygsheets speedtest-cli google-api-python-client
+    pip install -r requirements.txt
     ```
 
 

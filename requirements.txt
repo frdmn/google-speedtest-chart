@@ -1,14 +1,2 @@
-appdirs==1.4.3
-google-api-python-client==1.6.2
-httplib2==0.10.3
-oauth2client==4.0.0
-packaging==16.8
-pyasn1==0.2.3
-pyasn1-modules==0.0.8
-pygsheets==1.0.0
-pyparsing==2.2.0
-requests==2.13.0
-rsa==3.4.2
-six==1.10.0
-speedtest-cli==1.0.2
-uritemplate==3.0.0
+pygsheets>=1.1.1
+speedtest-cli
