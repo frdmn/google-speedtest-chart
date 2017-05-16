@@ -27,7 +27,7 @@ def submit_into_spreadsheet(download, upload, ping):
 
     data = [DATE, download, upload, ping]
 
-    sheet.append_row(values=data)
+    sheet.append_table(values=data)
 
 def main():
     # Check for proper credentials
