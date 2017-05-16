@@ -33,12 +33,11 @@ def main():
 
     # Run speedtest and store output
     print("Starting speed test...")
-    #speedtest.SOURCE = ip
-    s = speedtest.Speedtest()
-    s.get_best_server()
-    download = s.download()
-    upload = s.upload()
-    ping = s.results.ping
+    spdtest = speedtest.Speedtest()
+    spdtest.get_best_server()
+    download = spdtest.download()
+    upload = spdtest.upload()
+    ping = spdtest.results.ping
     print("Starting speed finished!")
 
     # Write to spreadsheet
