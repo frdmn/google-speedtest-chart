@@ -33,7 +33,7 @@ You can find an interactive demo (~~actually productive~~) version of the chart 
 1. Symlink it into your `$PATH`:
 
     ```
-    ln -s speedtest.py /usr/local/bin/speedtest-to-google
+    ln -s speedtest-charts.py /usr/local/bin/speedtest-to-google
     ```
 
 1. Authorization
