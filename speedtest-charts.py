@@ -6,13 +6,13 @@ import pygsheets
 import speedtest
 
 # Set options
-bymonth = True
+bymonth = False
 
 # Set constants
-DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
-sheetname = datetime.datetime.now().strftime("%b test1 %Y")
-header = [['Date'], ['Download'], ['Upload'], ['Ping']]
-workbookname = os.getenv('SPREADSHEET', 'Speedtest-test3')
+DATE = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+sheetname = datetime.datetime.now().strftime("%b %Y")
+header = [['A1', 'B1', 'C1', 'D1'], ['Date', 'Download', 'Upload', 'Ping']]
+workbookname = os.getenv('SPREADSHEET', 'Speedtest')
 
 # set variable scope
 download = ''
@@ -43,12 +43,15 @@ def submit_into_spreadsheet(download, upload, ping):
         except pygsheets.WorksheetNotFound:
             sheet = speedtest.add_worksheet(sheetname)
 
-        head1 = sheet.cell('A1').value
-        print(head1)
-        if head1 != header[1]:
-            sheet.update_cells('A1:D1', header)
-            headrange = sheet.range('A1:D1')
-            headrange.set_text_format('bold', 'true')
+        headnew = str(sheet.cell('A1').value)
+        headcur = str(header[1][0])
+
+        if headnew != headcur:
+            # create header row
+            for index in range(len(header[0])):
+                head = sheet.cell(header[0][index])
+                head.value = header[1][index]
+                head.update()
 
     data = [DATE, download, upload, ping]
 
@@ -56,6 +59,7 @@ def submit_into_spreadsheet(download, upload, ping):
 
 
 def getresults():
+    """Function to generate speedtest result."""
     spdtest = speedtest.Speedtest()
     spdtest.get_best_server()
 <<<<<<< HEAD
@@ -73,14 +77,6 @@ def getresults():
     return(download, upload, ping)
 
 
-def getresults_test():
-    download = '200'
-    upload = '300'
-    ping = '20'
-
-    return(download, upload, ping)
-
-
 def main():
     # Check for proper credentials
     print("Checking OAuth validity...")
@@ -92,8 +88,7 @@ def main():
 
     # Run speedtest and store output
     print("Starting speed test...")
-#    getresults()
-    getresults_test()
+    download, upload, ping = getresults()
     print("Starting speed finished!")
 >>>>>>> Removed unused modules
 
