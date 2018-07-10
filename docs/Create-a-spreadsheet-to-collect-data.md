@@ -5,7 +5,6 @@
 1. Name the title of the spreadsheet "`Speedtest`", otherwise you can use `SPREADSHEET` environment variable while executing the script to use a different name.
 1. Fill in the first four columns `Date`, `Download`, `Upload` and `Ping`:  
   ![](http://up.frd.mn/qS5LU.jpg)
-1. Copy the spreadsheet key from the URL into your `config.json`.  
 1. Run the `speedtest-to-google` script to make sure it's working:  
   `/usr/local/bin/speedtest-to-google`
 1. Yep, it works:  
@@ -13,7 +12,7 @@
 1. Setup a cronjob so the speedtest runs automatically:  
   `crontab -e`  
 
-  and insert:
+  and insert the following line to make the speedtest run every 10 minutes:
 
   `*/10 * * * * PATH=$PATH:/usr/local/bin /usr/local/bin/speedtest-to-google`
 
