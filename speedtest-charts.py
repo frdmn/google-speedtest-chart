@@ -36,8 +36,8 @@ def main():
     spdtest = speedtest.Speedtest()
     spdtest.get_best_server()
     
-    download = round(spdtest.download() / 1024 / 1024, 2)
-    upload = round(spdtest.upload() / 1024 / 1024, 2)
+    download = round(spdtest.download() / 1000 / 1000, 2)
+    upload = round(spdtest.upload() / 1000 / 1000, 2)
     ping = round(spdtest.results.ping)
 
     print("Starting speed finished (Download: ", download, ", Upload: ", upload, ", Ping: ", ping, ")")
