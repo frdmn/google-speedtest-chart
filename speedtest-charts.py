@@ -40,6 +40,8 @@ def main():
     upload = round(spdtest.upload() / 1024 / 1024, 2)
     ping = round(spdtest.results.ping)
 
+    print("Starting speed finished (Download: ", download, ", Upload: ", upload, ", Ping: ", ping, ")")
+
     # Write to spreadsheet
     print("Writing to spreadsheet...")
     submit_into_spreadsheet(download, upload, ping)
