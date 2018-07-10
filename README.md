@@ -7,6 +7,8 @@ Simple Python script to push speedtest results (using `speedtest-cli`) to a Goog
 
 You can find an interactive demo (~~actually productive~~) version of the chart by clicking the image above.
 
+_Note_: If you rather like Grafana than writing to a Google spreadsheet, checkout my new project [`docker-speedtest`](https://github.com/frdmn/docker-speedtest).
+
 ### Requirements
 
 * Google account
