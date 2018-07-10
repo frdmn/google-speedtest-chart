@@ -35,10 +35,10 @@ def main():
     print("Starting speed test...")
     spdtest = speedtest.Speedtest()
     spdtest.get_best_server()
-    download = spdtest.download()
-    upload = spdtest.upload()
-    ping = spdtest.results.ping
-    print("Starting speed finished!")
+    
+    download = round(spdtest.download() / 1024 / 1024, 2)
+    upload = round(spdtest.upload() / 1024 / 1024, 2)
+    ping = round(spdtest.results.ping)
 
     # Write to spreadsheet
     print("Writing to spreadsheet...")
