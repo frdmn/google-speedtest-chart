@@ -34,8 +34,6 @@ header = [['A1', 'B1', 'C1', 'D1'], ['Date', 'Download', 'Upload', 'Ping']]
 
 if cliarg.bymonth:
     sheetname = datetime.datetime.now().strftime("%b %Y")
-else:
-    sheetname = cliarg.sheetname
 
 # set variable scope
 download = ''
@@ -58,10 +56,13 @@ def submit_into_spreadsheet(download, upload, ping):
     except pygsheets.SpreadsheetNotFound:
         speedtest = gc.create(cliarg.workbookname)
 
-    try:
-        sheet = speedtest.worksheet('title', sheetname)
-    except pygsheets.WorksheetNotFound:
-        sheet = speedtest.add_worksheet(sheetname)
+    if cliarg.bymonth:
+        try:
+            sheet = speedtest.worksheet('title', sheetname)
+        except pygsheets.WorksheetNotFound:
+            sheet = speedtest.add_worksheet(sheetname)
+    else:
+        sheet = speedtest.sheet1
 
     headnew = str(sheet.cell('A1').value)
     headcur = str(header[1][0])
@@ -82,8 +83,8 @@ def getresults():
     """Function to generate speedtest result."""
     spdtest = speedtest.Speedtest()
     spdtest.get_best_server()
-    download = round(spdtest.download() / (2 ** 20), 2)
-    upload = round(spdtest.upload() / (2 ** 20), 2)
+    download = round(spdtest.download() / 1000 / 1000, 2)
+    upload = round(spdtest.upload() / 1000 / 1000, 2)
     ping = round(spdtest.results.ping)
 
     return(download, upload, ping)
