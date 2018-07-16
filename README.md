@@ -79,4 +79,4 @@ _Note_: If you rather like Grafana than writing to a Google spreadsheet, checkou
 
 ### Version
 
-1.6.0
+1.7.0
