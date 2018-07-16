@@ -84,7 +84,7 @@ def getresults():
     spdtest.get_best_server()
     download = round(spdtest.download() / (2 ** 20), 2)
     upload = round(spdtest.upload() / (2 ** 20), 2)
-    ping = round(spdtest.results.Ping)
+    ping = round(spdtest.results.ping)
 
     return(download, upload, ping)
 
