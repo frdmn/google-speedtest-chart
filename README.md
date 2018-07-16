@@ -47,16 +47,22 @@ _Note_: If you rather like Grafana than writing to a Google spreadsheet, checkou
 
     :book: [docs/Create-a-spreadsheet-to-collect-data.md](docs/Create-a-spreadsheet-to-collect-data.md)
 
-1. Run the script, you can pass a custom spreadsheet name by using the -w agument:
+1. Run the script with default settings (make sure you have a spreadsheet document called "Speedtest"):
+
+    ```
+    speedtest-to-google
+    ```
+
+    Alternatively you can use the `-w` switch to set a custom spreadsheet name:
 
     ```
     speedtest-to-google -w Speedtest-document
     ```
-    1. Here are the other arguments that are available:
+
+    Here are some other arguments that are available:
 
     ```
-    usage: speedtest-charts.py [-h] [-w, --workbookname WORKBOOKNAME]
-                           [-s, --sheetname SHEETNAME] [-b, --bymonth]
+    usage: speedtest-charts.py [-h] [-w, --workbookname WORKBOOKNAME] [-b, --bymonth]
 
     Simple Python script to push speedtest results (using speedtest-cli) to a Google Docs spreadsheet
 
@@ -64,8 +70,6 @@ _Note_: If you rather like Grafana than writing to a Google spreadsheet, checkou
       -h, --help            show this help message and exit
       -w, --workbookname WORKBOOKNAME
                         Sets the woorkbook name, default is "Speedtest"
-      -s, --sheetname SHEETNAME
-                        Sets the sheet name if "bymonth" not set, default is "sheet1"
       -b, --bymonth         Creats a new sheet for each month named MMM YYYY (ex: Jun 2018)
       ```
 
