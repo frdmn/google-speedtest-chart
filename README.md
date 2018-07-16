@@ -39,7 +39,7 @@ _Note_: If you rather like Grafana than writing to a Google spreadsheet, checkou
     ```
 
 1. Authorization
-    
+
     1. :book: [Authorize pygsheets](https://pygsheets.readthedocs.io/en/latest/authorizing.html#authorizing-pygsheets)
     1. :book: [Create an OAuth token](https://pygsheets.readthedocs.io/en/latest/authorizing.html#oauth-credentials), download the credential file and and store it as `credentials.json`
 
@@ -47,11 +47,27 @@ _Note_: If you rather like Grafana than writing to a Google spreadsheet, checkou
 
     :book: [docs/Create-a-spreadsheet-to-collect-data.md](docs/Create-a-spreadsheet-to-collect-data.md)
 
-1. Run the script, you can pass a custom spreadsheet name by setting `SPREADSHEET` environment variable:
+1. Run the script, you can pass a custom spreadsheet name by using the -w agument:
 
     ```
-    SPREADSHEET="Speedtest-document" speedtest-to-google
+    speedtest-to-google -w Speedtest-document
     ```
+    1. Here are the other arguments that are available:
+
+    ```
+    usage: speedtest-charts.py [-h] [-w, --workbookname WORKBOOKNAME]
+                           [-s, --sheetname SHEETNAME] [-b, --bymonth]
+
+    Simple Python script to push speedtest results (using speedtest-cli) to a Google Docs spreadsheet
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -w, --workbookname WORKBOOKNAME
+                        Sets the woorkbook name, default is "Speedtest"
+      -s, --sheetname SHEETNAME
+                        Sets the sheet name if "bymonth" not set, default is "sheet1"
+      -b, --bymonth         Creats a new sheet for each month named MMM YYYY (ex: Jun 2018)
+      ```
 
 ### License
 
