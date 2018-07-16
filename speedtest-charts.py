@@ -1,41 +1,18 @@
 #!/usr/bin/env python3
 
+import os
 import datetime
 import pygsheets
 import speedtest
-import argparse
 
 # Set options
-parser = argparse.ArgumentParser(
-    description='Simple Python script to push speedtest results \
-                (using speedtest-cli) to a Google Docs spreadsheet'
-)
-parser.add_argument(
-    "-w, --workbookname", action="store", default="Speedtest", type=str,
-    dest="workbookname",
-    help='Sets the woorkbook name, default is "Speedtest"'
-)
-parser.add_argument(
-    "-s, --sheetname", action="store", default="Sheet1", type=str,
-    dest="sheetname",
-    help='Sets the sheet name if "bymonth" not set, default is "sheet1"'
-)
-parser.add_argument(
-    "-b, --bymonth", action="store_true", default=False,
-    dest="bymonth",
-    help='Creats a new sheet for each month named MMM YYYY (ex: Jun 2018)'
-)
-
-cliarg = parser.parse_args()
+bymonth = True
 
 # Set constants
-DATE = datetime.datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-header = [['A1', 'B1', 'C1', 'D1'], ['Date', 'Download', 'Upload', 'Ping']]
-
-if cliarg.bymonth:
-    sheetname = datetime.datetime.now().strftime("%b %Y")
-else:
-    sheetname = cliarg.sheetname
+DATE = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
+sheetname = datetime.datetime.now().strftime("%b test1 %Y")
+header = [['Date'], ['Download'], ['Upload'], ['Ping']]
+workbookname = os.getenv('SPREADSHEET', 'Speedtest-test3')
 
 # set variable scope
 download = ''
@@ -54,24 +31,24 @@ def submit_into_spreadsheet(download, upload, ping):
     gc = get_credentials()
 
     try:
-        speedtest = gc.open(cliarg.workbookname)
+        speedtest = gc.open(workbookname)
     except pygsheets.SpreadsheetNotFound:
-        speedtest = gc.create(cliarg.workbookname)
+        speedtest = gc.create(workbookname)
 
-    try:
-        sheet = speedtest.worksheet('title', sheetname)
-    except pygsheets.WorksheetNotFound:
-        sheet = speedtest.add_worksheet(sheetname)
+    if not bymonth:
+        sheet = speedtest.sheet1
+    else:
+        try:
+            sheet = speedtest.worksheet('title', sheetname)
+        except pygsheets.WorksheetNotFound:
+            sheet = speedtest.add_worksheet(sheetname)
 
-    headnew = str(sheet.cell('A1').value)
-    headcur = str(header[1][0])
-
-    if headnew != headcur:
-        # create header row
-        for index in range(len(header[0])):
-            head = sheet.cell(header[0][index])
-            head.value = header[1][index]
-            head.update()
+        head1 = sheet.cell('A1').value
+        print(head1)
+        if head1 != header[1]:
+            sheet.update_cells('A1:D1', header)
+            headrange = sheet.range('A1:D1')
+            headrange.set_text_format('bold', 'true')
 
     data = [DATE, download, upload, ping]
 
@@ -79,20 +56,24 @@ def submit_into_spreadsheet(download, upload, ping):
 
 
 def getresults():
-    """Function to generate speedtest result."""
     spdtest = speedtest.Speedtest()
     spdtest.get_best_server()
-<<<<<<< HEAD
-    
-    download = round(spdtest.download() / 1000 / 1000, 2)
-    upload = round(spdtest.upload() / 1000 / 1000, 2)
-    ping = round(spdtest.results.ping)
+    download = round(spdtest.download() / (2 ** 20), 2)
+    upload = round(spdtest.upload() / (2 ** 20), 2)
+    ping = round(spdtest.results.Ping)
 
-    print("Starting speed finished (Download: ", download, ", Upload: ", upload, ", Ping: ", ping, ")")
-=======
-    download = spdtest.download()
-    upload = spdtest.upload()
-    ping = spdtest.results.ping
+    print(
+        "Starting speed finished (Download: ", download,
+        ", Upload: ", upload,
+        ", Ping: ", ping, ")")
+
+    return(download, upload, ping)
+
+
+def getresults_test():
+    download = '200'
+    upload = '300'
+    ping = '20'
 
     return(download, upload, ping)
 
@@ -108,9 +89,9 @@ def main():
 
     # Run speedtest and store output
     print("Starting speed test...")
-    download, upload, ping = getresults()
+#    getresults()
+    getresults_test()
     print("Starting speed finished!")
->>>>>>> Removed unused modules
 
     # Write to spreadsheet
     print("Writing to spreadsheet...")
