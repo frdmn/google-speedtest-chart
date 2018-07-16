@@ -16,11 +16,6 @@ parser.add_argument(
     help='Sets the woorkbook name, default is "Speedtest"'
 )
 parser.add_argument(
-    "-s, --sheetname", action="store", default="Sheet1", type=str,
-    dest="sheetname",
-    help='Sets the sheet name if "bymonth" not set, default is "sheet1"'
-)
-parser.add_argument(
     "-b, --bymonth", action="store_true", default=False,
     dest="bymonth",
     help='Creats a new sheet for each month named MMM YYYY (ex: Jun 2018)'
